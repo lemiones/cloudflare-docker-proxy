@@ -19,7 +19,7 @@ const routes = {
   "ecr.docker.uclouder.com": "https://public.ecr.aws",
 
   // staging
-  // "docker-staging.libcuda.so": dockerHub,
+  "staging.docker.uclouder.com": dockerHub,
 };
 
 function routeByHosts(host) {
