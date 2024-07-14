@@ -1,4 +1,4 @@
-import DOCS from './help.html';
+import DOCS from './help.html'
 
 addEventListener("fetch", (event) => {
   event.passThroughOnException();
