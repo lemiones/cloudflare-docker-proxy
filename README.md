@@ -38,3 +38,5 @@
    };
    ```
 
+## Help
+Need Help? See: [Build an image acceleration service based on Cloudflare Workers and cloudflare-docker-proxy.](https://www.lixueduan.com/posts/docker/12-docker-mirror/)
