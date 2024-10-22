@@ -1,3 +1,5 @@
+import DOCS from './help.html'
+
 addEventListener("fetch", (event) => {
   event.passThroughOnException();
   event.respondWith(handleRequest(event.request));
@@ -7,17 +9,17 @@ const dockerHub = "https://registry-1.docker.io";
 
 const routes = {
   // production
-  ["hub.docker." + CUSTOM_DOMAIN]: dockerHub,
-  ["quay.docker." + CUSTOM_DOMAIN]: "https://quay.io",
-  ["gcr.docker." + CUSTOM_DOMAIN]: "https://gcr.io",
-  ["k8s-gcr.docker." + CUSTOM_DOMAIN]: "https://k8s.gcr.io",
-  ["k8s.docker." + CUSTOM_DOMAIN]: "https://registry.k8s.io",
-  ["ghcr.docker." + CUSTOM_DOMAIN]: "https://ghcr.io",
-  ["cloudsmith.docker." + CUSTOM_DOMAIN]: "https://docker.cloudsmith.io",
-  ["ecr.docker." + CUSTOM_DOMAIN]: "https://public.ecr.aws",
+  ["hub." + CUSTOM_DOMAIN]: dockerHub,
+  ["quay." + CUSTOM_DOMAIN]: "https://quay.io",
+  ["gcr." + CUSTOM_DOMAIN]: "https://gcr.io",
+  ["k8s-gcr." + CUSTOM_DOMAIN]: "https://k8s.gcr.io",
+  ["k8s." + CUSTOM_DOMAIN]: "https://registry.k8s.io",
+  ["ghcr." + CUSTOM_DOMAIN]: "https://ghcr.io",
+  ["cloudsmith." + CUSTOM_DOMAIN]: "https://docker.cloudsmith.io",
+  ["ecr." + CUSTOM_DOMAIN]: "https://public.ecr.aws",
 
   // staging
-  ["staging.docker." + CUSTOM_DOMAIN]: dockerHub,
+  ["staging." + CUSTOM_DOMAIN]: dockerHub,
 };
 
 function routeByHosts(host) {
@@ -42,6 +44,15 @@ async function handleRequest(request) {
         status: 404,
       }
     );
+  }
+  // return docs
+  if (url.pathname === "/") {
+    return new Response(DOCS, {
+      status: 200,
+      headers: {
+        "content-type": "text/html"
+      }
+    });
   }
   const isDockerHub = upstream == dockerHub;
   const authorization = request.headers.get("Authorization");
